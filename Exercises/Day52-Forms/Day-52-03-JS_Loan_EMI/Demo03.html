@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ClearDebt Loan Calculator</title>
+    <script>
+        function calculateLoan() {
+            var amount = parseFloat(document.getElementById("amount").value)
+            var rate = parseFloat(document.getElementById("rate").value)
+            var months = parseFloat(document.getElementById("months").value)
+
+            var tbody = document.getElementById("scheduleBody")
+            tbody.innerHTML = ""
+
+            if (isNaN(amount) || isNaN(rate) || isNaN(months) || amount <= 0 || rate < 0 || months <= 0) {
+                alert("Please enter valid values")
+                return false
+            }
+
+            var monthlyRate = rate / 12 / 100
+            var emi
+
+            if (monthlyRate == 0) {
+                emi = amount / months
+            } else {
+                emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1)
+            }
+
+            var balance = amount
+
+            for (var i = 1; i <= months; i++) {
+                var loanLeft = balance
+                var interest = balance * monthlyRate
+                var principal = emi - interest
+                balance = balance - principal
+
+                if (balance < 0) {
+                    balance = 0
+                }
+
+                var row = "<tr>"
+                row += "<td>" + i + "</td>"
+                row += "<td>" + loanLeft.toFixed(2) + "</td>"
+                row += "<td>" + emi.toFixed(2) + "</td>"
+                row += "<td>" + principal.toFixed(2) + "</td>"
+                row += "<td>" + interest.toFixed(2) + "</td>"
+                row += "<td>" + balance.toFixed(2) + "</td>"
+                row += "</tr>"
+
+                tbody.innerHTML += row
+            }
+
+            return false
+        }
+    </script>
+</head>
+<body>
+
+    <h2>ClearDebt Loan Calculator</h2>
+
+    <form onsubmit="return calculateLoan()">
+        Loan Amount:
+        <input type="text" id="amount"><br><br>
+
+        Interest Rate:
+        <input type="text" id="rate"><br><br>
+
+        Months:
+        <input type="text" id="months"><br><br>
+
+        <input type="submit" value="Generate Schedule">
+    </form>
+
+    <br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>SNO</th>
+                <th>Loan Left</th>
+                <th>EMI</th>
+                <th>Principal</th>
+                <th>Interest</th>
+                <th>Remaining Balance</th>
+            </tr>
+        </thead>
+        <tbody id="scheduleBody">
+        </tbody>
+    </table>
+
+</body>
+</html>
