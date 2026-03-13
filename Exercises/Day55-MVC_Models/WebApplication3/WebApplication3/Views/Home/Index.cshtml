@@ -1,0 +1,81 @@
+﻿@model List<WebApplication3.Models.Employee>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center mb-4">
+    <h2 class="fw-bold">Corporate Pulse Dashboard</h2>
+    <p class="text-muted">Employee overview and department updates</p>
+</div>
+
+<div class="alert alert-primary shadow-sm border-0 rounded-3 text-center">
+    <strong>Announcement:</strong> @ViewBag.Announcement
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">Department</h5>
+                <h4 class="text-primary">@ViewData["Department"]</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">Status</h5>
+                @if ((bool)ViewData["IsActive"])
+                {
+                    <h4 class="text-success">Active</h4>
+                }
+                else
+                {
+                    <h4 class="text-danger">Maintenance</h4>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">Total Employees</h5>
+                <h4 class="text-dark">@Model.Count</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow border-0 rounded-4">
+    <div class="card-header bg-dark text-white rounded-top-4">
+        <h5 class="mb-0">Employee List</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th class="text-end">Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var emp in Model)
+                    {
+                        <tr>
+                            <td>@emp.Id</td>
+                            <td>@emp.Name</td>
+                            <td>@emp.Position</td>
+                            <td class="text-end">₹@emp.Salary.ToString("N0")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
