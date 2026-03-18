@@ -1,0 +1,125 @@
+﻿@inject WealthTrack.Data.WealthTrackContext _context
+
+@{
+    decimal totalPortfolio = 0;
+
+    if (_context != null && _context.Investments != null && _context.Investments.Any())
+    {
+        totalPortfolio = _context.Investments
+            .Select(x => x.PurchasePrice * x.Quantity)
+            .Sum();
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WealthTrack</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WealthTrack.styles.css" asp-append-version="true" />
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: 0.2s ease-in-out;
+            border-radius: 8px;
+            padding: 8px 14px !important;
+        }
+
+            .nav-link:hover {
+                background-color: rgba(255,255,255,0.15);
+            }
+
+        .portfolio-badge {
+            font-size: 15px;
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        main {
+            min-height: 80vh;
+        }
+
+        .footer-custom {
+            background-color: #212529;
+            color: white;
+            padding: 14px 0;
+        }
+
+            .footer-custom a {
+                color: #ffc107;
+                text-decoration: none;
+            }
+
+                .footer-custom a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Investments" asp-action="Index">
+                    WealthTrack
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-controller="Investments" asp-action="Index">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-controller="Investments" asp-action="Create">Add Investment</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex">
+                        <span class="badge bg-success portfolio-badge">
+                            💰 Total Portfolio Value: ₹ @totalPortfolio
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer-custom mt-4">
+        <div class="container text-center">
+            &copy; 2026 - WealthTrack Portfolio Manager
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

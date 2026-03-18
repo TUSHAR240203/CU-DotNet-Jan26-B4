@@ -1,0 +1,88 @@
+﻿@model WealthTrack.Models.Investment
+
+@{
+    ViewData["Title"] = "Delete Investment";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <!-- Header -->
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h3 class="mb-0">⚠️ Confirm Delete</h3>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body p-4">
+
+            <p class="text-danger fw-bold fs-5">
+                Are you sure you want to delete this investment?
+            </p>
+
+            <hr />
+
+            <div class="row mb-3 detail-row">
+                <div class="col-4 fw-bold">Ticker Symbol</div>
+                <div class="col-8">@Model.TickerSymbol</div>
+            </div>
+
+            <div class="row mb-3 detail-row">
+                <div class="col-4 fw-bold">Asset Name</div>
+                <div class="col-8">@Model.AssetName</div>
+            </div>
+
+            <div class="row mb-3 detail-row">
+                <div class="col-4 fw-bold">Price</div>
+                <div class="col-8">₹ @Model.PurchasePrice</div>
+            </div>
+
+            <div class="row mb-3 detail-row">
+                <div class="col-4 fw-bold">Quantity</div>
+                <div class="col-8">@Model.Quantity</div>
+            </div>
+
+            <div class="row mb-3 detail-row">
+                <div class="col-4 fw-bold">Date</div>
+                <div class="col-8">@Model.PurchaseDate.ToString("dd-MM-yyyy")</div>
+            </div>
+
+            <div class="row mb-3 bg-light p-2 rounded">
+                <div class="col-4 fw-bold">Total Value</div>
+                <div class="col-8 fw-bold text-danger">
+                    ₹ @(Model.PurchasePrice* Model.Quantity)
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer d-flex justify-content-end gap-2">
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger px-4" />
+            </form>
+
+            <a asp-action="Index" class="btn btn-secondary px-4">Cancel</a>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .detail-row {
+        transition: 0.2s ease-in-out;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+        .detail-row:hover {
+            background-color: #f8d7da;
+            transform: scale(1.01);
+        }
+
+    .card:hover {
+        transform: scale(1.01);
+        transition: 0.2s ease-in-out;
+    }
+</style>

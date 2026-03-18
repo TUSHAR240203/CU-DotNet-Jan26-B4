@@ -1,0 +1,91 @@
+﻿@model WealthTrack.ViewModels.InvestmentCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Investment";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-header bg-success text-white rounded-top-4">
+            <h3 class="mb-0">Add New Investment</h3>
+        </div>
+
+        <div class="card-body p-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="TickerSymbol" class="form-label fw-semibold"></label>
+                    <input asp-for="TickerSymbol" class="form-control custom-input" />
+                    <span asp-validation-for="TickerSymbol" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AssetName" class="form-label fw-semibold"></label>
+                    <input asp-for="AssetName" class="form-control custom-input" />
+                    <span asp-validation-for="AssetName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-semibold"></label>
+                    <input asp-for="Price" id="price" class="form-control custom-input" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Quantity" class="form-label fw-semibold"></label>
+                    <input asp-for="Quantity" id="qty" class="form-control custom-input" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TotalValue" class="form-label fw-semibold"></label>
+                    <input asp-for="TotalValue" id="total" class="form-control bg-light" readonly />
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <input type="submit" value="Create" class="btn btn-success px-4" />
+                    <a asp-action="Index" class="btn btn-secondary px-4">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-input {
+        transition: 0.2s ease-in-out;
+        border-radius: 10px;
+    }
+
+        .custom-input:hover,
+        .custom-input:focus {
+            box-shadow: 0 0 8px rgba(25, 135, 84, 0.25);
+            border-color: #198754;
+        }
+
+    .card:hover {
+        transform: scale(1.01);
+        transition: 0.2s ease-in-out;
+    }
+</style>
+
+<script>
+    function calculateTotal() {
+        var price = parseFloat(document.getElementById("price").value) || 0;
+        var qty = parseInt(document.getElementById("qty").value) || 0;
+        var total = price * qty;
+
+        document.getElementById("total").value = total > 0 ? "₹ " + total.toFixed(2) : "";
+    }
+
+    document.getElementById("price").addEventListener("input", calculateTotal);
+    document.getElementById("qty").addEventListener("input", calculateTotal);
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
