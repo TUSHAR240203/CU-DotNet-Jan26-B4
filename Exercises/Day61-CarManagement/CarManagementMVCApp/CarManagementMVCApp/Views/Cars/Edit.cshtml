@@ -1,0 +1,49 @@
+﻿@model CarManagementMVCApp.Models.Car
+
+@{
+    ViewData["Title"] = "Edit Car";
+}
+
+<div class="form-wrapper">
+    <div class="premium-card p-4 p-md-5">
+        <h2 class="mb-4">Edit Car</h2>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Brand" class="form-label"></label>
+                <input asp-for="Brand" class="form-control premium-input" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Model" class="form-label"></label>
+                <input asp-for="Model" class="form-control premium-input" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Year" class="form-label"></label>
+                <input asp-for="Year" class="form-control premium-input" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control premium-input" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex gap-3">
+                <button type="submit" class="btn premium-btn-warning">Update</button>
+                <a asp-action="Index" class="btn premium-btn-outline">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

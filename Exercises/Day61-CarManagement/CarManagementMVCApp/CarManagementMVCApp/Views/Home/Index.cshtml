@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+            <div class="premium-card p-5">
+                <span class="hero-badge">Role-Based Authentication System</span>
+                <h1 class="hero-title mt-3">Premium Car Management Dashboard</h1>
+                <p class="hero-text mt-3">
+                    Secure ASP.NET Core MVC application with Identity, role management, authorization,
+                    and modern premium interface for Admin, Customer, and User.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn premium-btn btn-lg">Login</a>
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn premium-btn-outline btn-lg">Register</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Car" asp-action="Index" class="btn premium-btn btn-lg">Explore Cars</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="premium-visual">
+                <div class="glass-card">
+                    <i class="bi bi-shield-lock-fill display-3 mb-3"></i>
+                    <h2>Secure Access</h2>
+                    <p>Identity + Role Authorization + Premium UI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
