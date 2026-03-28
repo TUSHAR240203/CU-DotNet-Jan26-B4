@@ -1,0 +1,6 @@
+@SmartBank.LogTrack_HostAddress = http://localhost:5253
+
+GET {{SmartBank.LogTrack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
