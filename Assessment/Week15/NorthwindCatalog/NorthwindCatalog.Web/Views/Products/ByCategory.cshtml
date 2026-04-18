@@ -1,0 +1,51 @@
+﻿@model List<ProductDto>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container page-wrap">
+    <div class="hero-glass mb-4">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+            <div>
+                <h1 class="hero-title">Category Products</h1>
+                <p class="hero-text">
+                    Review products, stock levels, unit price, and calculated inventory value in an animated premium layout.
+                </p>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+                <a asp-controller="Categories" asp-action="Index" class="glass-btn-outline">Back</a>
+                <a asp-controller="Summary" asp-action="Index" class="glass-btn">Summary</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @if (Model != null && Model.Count > 0)
+        {
+            var index = 0;
+            @foreach (var item in Model)
+            {
+                index++;
+                <div class="col-md-6 col-xl-4">
+                    <div class="glass-card @(index == 1 ? "delay-1" : index == 2 ? "delay-2" : index == 3 ? "delay-3" : "delay-4")">
+                        <div class="glass-card-body">
+                            <h3 class="card-title-glass">@item.ProductName</h3>
+                            <p class="card-meta"><strong>Unit Price:</strong> @item.UnitPrice.ToString("0.00")</p>
+                            <p class="card-meta"><strong>Units In Stock:</strong> @item.UnitsInStock</p>
+                            <span class="inventory-badge">
+                                Inventory Value: @item.InventoryValue.ToString("0.00")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="empty-glass">No products found for this category.</div>
+            </div>
+        }
+    </div>
+</div>

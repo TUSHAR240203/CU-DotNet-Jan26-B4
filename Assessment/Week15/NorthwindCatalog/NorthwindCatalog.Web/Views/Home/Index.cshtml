@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container page-wrap">
+    <div class="hero-glass text-center">
+        <h1 class="hero-title">Northwind Catalog Dashboard</h1>
+        <p class="hero-text mx-auto">
+            A MVC interface for browsing categories, viewing products, and checking analytics summary.
+        </p>
+
+        <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="Categories" asp-action="Index" class="glass-btn">Open Categories</a>
+            <a asp-controller="Summary" asp-action="Index" class="glass-btn-outline">Open Summary</a>
+        </div>
+    </div>
+</div>

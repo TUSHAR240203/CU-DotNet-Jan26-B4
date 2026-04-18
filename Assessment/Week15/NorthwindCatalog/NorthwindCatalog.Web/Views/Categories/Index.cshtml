@@ -1,0 +1,66 @@
+﻿@model List<CategoryDto>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="container page-wrap">
+    <div class="hero-glass mb-5">
+        <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4">
+            <div>
+                <span class="inventory-badge mb-3">Total Categories: @(Model?.Count ?? 0)</span>
+                <h1 class="hero-title mt-3">Explore Northwind Categories</h1>
+                <p class="hero-text">
+                    Browse all product categories through a modern premium dashboard with elegant glass cards and smooth interactions.
+                </p>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+                <a asp-controller="Summary" asp-action="Index" class="glass-btn">View Summary</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+        <div>
+            <h2 class="section-title">All Categories</h2>
+            <p class="section-subtitle mb-0">Select a category to view its products and inventory details.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @if (Model != null && Model.Count > 0)
+        {
+            var index = 0;
+            @foreach (var item in Model)
+            {
+                index++;
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card @(index == 1 ? "delay-1" : index == 2 ? "delay-2" : index == 3 ? "delay-3" : "delay-4")">
+                        <img src="@item.ImageUrl"
+                             alt="@item.CategoryName"
+                             onerror="this.src='/images/default.jpg'" />
+
+                        <div class="glass-card-body text-center">
+                            <h3 class="card-title-glass">@item.CategoryName</h3>
+                            <p class="card-meta">Discover products available in this category.</p>
+
+                            <a asp-controller="Products"
+                                   asp-action="ByCategory"
+                                   asp-route-id="@item.CategoryId"
+                                   class="glass-btn mt-2">
+                                View Products
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="empty-glass">No categories found.</div>
+            </div>
+        }
+    </div>
+</div>
